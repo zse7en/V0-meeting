@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark theme inspired by the new reference image */
+    --background: 220 15% 12%; /* Very dark gray, almost black */
+    --foreground: 220 10% 85%; /* Light gray for default text */
+
+    --card: 220 15% 18%; /* Slightly lighter dark gray for cards */
+    --card-foreground: 220 10% 90%; /* Text on cards */
+
+    --popover: 220 15% 15%;
+    --popover-foreground: 220 10% 90%;
+
+    --primary: 260 70% 65%; /* Vibrant purple for primary actions/accents */
+    --primary-foreground: 220 10% 98%; /* White/very light gray for text on primary */
+
+    --secondary: 220 15% 25%; /* Darker gray for secondary elements */
+    --secondary-foreground: 220 10% 75%;
+
+    --muted: 220 15% 30%; /* Muted dark gray for less important text/backgrounds */
+    --muted-foreground: 220 10% 60%;
+
+    --accent: 45 90% 60%; /* Vibrant yellow for secondary accents */
+    --accent-foreground: 220 10% 10%; /* Dark text for yellow accents */
+
+    --destructive: 0 65% 60%; /* A clear red for destructive actions */
+    --destructive-foreground: 220 10% 98%;
+
+    --border: 220 15% 22%; /* Subtle border for cards and elements */
+    --input: 220 15% 20%;
+    --ring: 260 70% 70%; /* Focus ring color (lighter purple) */
+
+    --radius: 1rem; /* Default border radius for cards */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
