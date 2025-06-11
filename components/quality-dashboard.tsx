@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import ProblemIdentification from "./sections/problem-identification"
-import DataAnalysis from "./sections/data-analysis"
-import VirtualMeeting from "./sections/virtual-meeting"
-import SolutionPresentation from "./sections/solution-presentation"
+import ProblemIdentification from "./problem-identification"
+import DataAnalysis from "./data-analysis"
+import VirtualMeeting from "./virtual-meeting"
+import SolutionPresentation from "./solution-presentation"
 import NavigationPanel from "./navigation-panel"
 import { BarChart3, Users, Lightbulb, Brain } from "lucide-react"
 import BackgroundGrid from "./ui/background-grid"
@@ -66,9 +66,9 @@ export default function QualityDashboard() {
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#36BFFA] to-[#8B5CF6]">
                       AI
                     </span>
-                    <span className="text-white">瑞元 · 数智</span>
+                    <span className="text-white">质量分析平台</span>
                   </h1>
-                  <p className="text-[#64748B] text-sm">主机厂A线质量问题智能分析系统 - 小瑞AI助手</p>
+                  <p className="text-[#64748B] text-sm">主机厂A线质量问题智能分析系统</p>
                 </div>
               </div>
             </div>
@@ -117,24 +117,24 @@ export default function QualityDashboard() {
       <div className="relative z-10 border-t border-[#1E2334] bg-[#0A0C10]/80 backdrop-blur-xl p-2">
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex space-x-1">
-            {steps.map((step, index) => {
-              let progressClass = "bg-[#1E2334]"
-              if (index === activeStep) {
-                progressClass = "bg-gradient-to-r from-[#36BFFA] to-[#8B5CF6]"
-              } else if (completedSteps.includes(index)) {
-                progressClass = "bg-[#10B981]"
-              }
-
-              return (
-                <div key={step.id} className={`h-1 w-16 rounded-full transition-all duration-500 ${progressClass}`} />
-              )
-            })}
+            {steps.map((step, index) => (
+              <div
+                key={step.id}
+                className={`h-1 w-16 rounded-full transition-all duration-500 ${
+                  index === activeStep
+                    ? "bg-gradient-to-r from-[#36BFFA] to-[#8B5CF6]"
+                    : completedSteps.includes(index)
+                      ? "bg-[#10B981]"
+                      : "bg-[#1E2334]"
+                }`}
+              />
+            ))}
           </div>
           <div className="text-sm text-[#64748B] flex items-center">
             {autoProgress && (
               <>
                 <div className="mr-2 h-2 w-2 rounded-full bg-[#36BFFA] animate-pulse"></div>
-                小瑞AI分析处理中...
+                自动演示中...
               </>
             )}
             {!autoProgress && <span>手动模式</span>}

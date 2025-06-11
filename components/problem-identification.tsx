@@ -40,7 +40,7 @@ export default function ProblemIdentification() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-gradient-to-r from-[#7F1D1D]/20 to-[#991B1B]/5 backdrop-blur-sm border border-[#F87171]/20 rounded-lg p-4 flex items-start"
         >
-          <div className="bg-gradient-to-r from-[#EF4444] to-[#F87171] rounded-full p-2 mr-4">
+          <div className="bg-gradient-to-r from-[#EF4444] to-[#F87171] rounded-full p-2 mr-4 shadow-glow-red">
             <AlertTriangle className="h-6 w-6 text-white" />
           </div>
           <div>
@@ -67,19 +67,19 @@ export default function ProblemIdentification() {
             </h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start">
-                <span className="bg-gradient-to-r from-[#36BFFA] to-[#8B5CF6] text-white rounded-full h-5 w-5 flex items-center justify-center text-xs mr-2 mt-0.5">
+                <span className="bg-gradient-to-r from-[#36BFFA] to-[#8B5CF6] text-white rounded-full h-5 w-5 flex items-center justify-center text-xs mr-2 mt-0.5 shadow-glow-blue">
                   1
                 </span>
                 <span className="text-[#E2E8F0]">主机厂A线装配车间发现车门密封条安装不良</span>
               </li>
               <li className="flex items-start">
-                <span className="bg-gradient-to-r from-[#36BFFA] to-[#8B5CF6] text-white rounded-full h-5 w-5 flex items-center justify-center text-xs mr-2 mt-0.5">
+                <span className="bg-gradient-to-r from-[#36BFFA] to-[#8B5CF6] text-white rounded-full h-5 w-5 flex items-center justify-center text-xs mr-2 mt-0.5 shadow-glow-blue">
                   2
                 </span>
                 <span className="text-[#E2E8F0]">客户报告雨天行驶时有水渗入车内现象</span>
               </li>
               <li className="flex items-start">
-                <span className="bg-gradient-to-r from-[#36BFFA] to-[#8B5CF6] text-white rounded-full h-5 w-5 flex items-center justify-center text-xs mr-2 mt-0.5">
+                <span className="bg-gradient-to-r from-[#36BFFA] to-[#8B5CF6] text-white rounded-full h-5 w-5 flex items-center justify-center text-xs mr-2 mt-0.5 shadow-glow-blue">
                   3
                 </span>
                 <span className="text-[#E2E8F0]">问题主要集中在前门密封，影响客户满意度评分</span>
@@ -127,7 +127,7 @@ export default function ProblemIdentification() {
             <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#8B5CF6] to-[#F43F5E]" />
 
             <div className="relative pl-10 pb-6">
-              <div className="absolute left-0 rounded-full h-8 w-8 bg-[#8B5CF6] flex items-center justify-center">
+              <div className="absolute left-0 rounded-full h-8 w-8 bg-[#8B5CF6] flex items-center justify-center shadow-glow-purple">
                 <span className="text-xs text-white">5/20</span>
               </div>
               <div className="bg-[#1E2334]/30 backdrop-blur-md rounded-lg p-3 border border-[#1E2334]">
@@ -136,7 +136,7 @@ export default function ProblemIdentification() {
             </div>
 
             <div className="relative pl-10 pb-6">
-              <div className="absolute left-0 rounded-full h-8 w-8 bg-[#A855F7] flex items-center justify-center">
+              <div className="absolute left-0 rounded-full h-8 w-8 bg-[#A855F7] flex items-center justify-center shadow-glow-purple">
                 <span className="text-xs text-white">5/28</span>
               </div>
               <div className="bg-[#1E2334]/30 backdrop-blur-md rounded-lg p-3 border border-[#1E2334]">
@@ -145,7 +145,7 @@ export default function ProblemIdentification() {
             </div>
 
             <div className="relative pl-10 pb-6">
-              <div className="absolute left-0 rounded-full h-8 w-8 bg-[#EC4899] flex items-center justify-center">
+              <div className="absolute left-0 rounded-full h-8 w-8 bg-[#EC4899] flex items-center justify-center shadow-glow-purple">
                 <span className="text-xs text-white">6/05</span>
               </div>
               <div className="bg-[#1E2334]/30 backdrop-blur-md rounded-lg p-3 border border-[#1E2334]">
@@ -154,7 +154,7 @@ export default function ProblemIdentification() {
             </div>
 
             <div className="relative pl-10">
-              <div className="absolute left-0 rounded-full h-8 w-8 bg-[#F43F5E] flex items-center justify-center">
+              <div className="absolute left-0 rounded-full h-8 w-8 bg-[#F43F5E] flex items-center justify-center shadow-glow-red">
                 <span className="text-xs text-white">6/09</span>
               </div>
               <div className="bg-gradient-to-r from-[#7F1D1D]/20 to-[#991B1B]/5 backdrop-blur-sm border border-[#F87171]/20 rounded-lg p-3">

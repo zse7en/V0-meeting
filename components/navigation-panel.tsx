@@ -83,7 +83,7 @@ export default function NavigationPanel({ steps, activeStep, completedSteps, onS
             </div>
           </div>
           <div>
-            <div className="text-xs font-medium text-white">小瑞AI驱动质量分析</div>
+            <div className="text-xs font-medium text-white">AI 分析引擎</div>
             <div className="text-[#64748B] text-xs">实时运行中</div>
           </div>
         </div>
