@@ -18,6 +18,7 @@ export default function AICommandCenter() {
   const [knowledgeNodes, setKnowledgeNodes] = useState<Array<{id: number, x: number, y: number, type: string, active: boolean}>>([])
   const [aiConsciousness, setAiConsciousness] = useState(0)
   const [decisionTree, setDecisionTree] = useState<Array<{id: number, question: string, answer: string, confidence: number}>>([])
+  const [dimensions, setDimensions] = useState({ width: 800, height: 600 })
 
   const phases = [
     {
@@ -53,6 +54,24 @@ export default function AICommandCenter() {
       description: "基于反馈自动优化，持续学习"
     },
   ]
+
+  // 获取窗口尺寸
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (typeof window !== 'undefined') {
+        setDimensions({
+          width: window.innerWidth,
+          height: window.innerHeight
+        })
+      }
+    }
+
+    updateDimensions()
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', updateDimensions)
+      return () => window.removeEventListener('resize', updateDimensions)
+    }
+  }, [])
 
   // AI进化逻辑
   useEffect(() => {
@@ -324,12 +343,12 @@ export default function AICommandCenter() {
             key={i}
             className="absolute w-1 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full"
             initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * dimensions.width,
+              y: Math.random() * dimensions.height,
             }}
             animate={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * dimensions.width,
+              y: Math.random() * dimensions.height,
               scale: [1, 1.5, 1],
               opacity: [0.3, 1, 0.3],
             }}
