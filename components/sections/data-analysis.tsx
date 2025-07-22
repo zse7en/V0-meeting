@@ -275,44 +275,21 @@ const ContributionChart = () => {
 const fishboneData = {
   effect: "密封条安装不良 (PPM: 5200)",
   categories: [
-    {
-      name: "人 (Man)",
-      causes: [{ text: "新材料操作熟练度低" }, { text: "SOP培训不足" }, { text: "疲劳操作(夜班)" }],
-    },
-    {
-      name: "机 (Machine)",
-      causes: [
-        { text: "压装工装压力传感器未校准" },
-        { text: "工装无法自适应硬度变化" },
-        { text: "设备电机电流过载报警" },
-      ],
-    },
-    {
-      name: "法 (Method)",
-      causes: [{ text: "SOP (WI-OP-30-A)未更新" }, { text: "安装参数基于旧材料" }, { text: "缺乏首件检验流程" }],
-    },
-    {
-      name: "料 (Material)",
-      causes: [{ text: "硬度增加15% (EPDM-K75)" }, { text: "弹性模量变化20%" }, { text: "供应商配方变更未充分验证" }],
-    },
-    {
-      name: "测 (Measurement)",
-      causes: [{ text: "检验标准依赖人工目测" }, { text: "未增加轮廓扫描仪验证" }, { text: "量具MSA过期" }],
-    },
-    {
-      name: "环 (Environment)",
-      causes: [{ text: "早晚班温差10°C" }, { text: "材料柔韧性受温度影响" }, { text: "工位照明不足" }],
-    },
+    { name: "人 (Man)", causes: [{ text: "新材料操作熟练度低" }, { text: "SOP培训不足" }, { text: "疲劳操作(夜班)" }] },
+    { name: "机 (Machine)", causes: [{ text: "压装工装压力传感器未校准" }, { text: "工装无法自适应硬度变化" }, { text: "设备电机电流过载报警" }] },
+    { name: "法 (Method)", causes: [{ text: "SOP (WI-OP-30-A)未更新" }, { text: "安装参数基于旧材料" }, { text: "缺乏首件检验流程" }] },
+    { name: "料 (Material)", causes: [{ text: "硬度增加15% (EPDM-K75)" }, { text: "弹性模量变化20%" }, { text: "供应商配方变更未充分验证" }] },
+    { name: "测 (Measurement)", causes: [{ text: "检验标准依赖人工目测" }, { text: "未增加轮廓扫描仪验证" }, { text: "量具MSA过期" }] },
+    { name: "环 (Environment)", causes: [{ text: "早晚班温差10°C" }, { text: "材料柔韧性受温度影响" }, { text: "工位照明不足" }] },
   ],
 }
 
 export default function DataAnalysis() {
   const [showAll, setShowAll] = useState(false)
-  const [show3DPlot, setShow3DPlot] = useState(false) // State for 3D plot visibility
+  const [show3DPlot, setShow3DPlot] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setShowAll(true), 300)
-    // Stagger the 3D plot appearance slightly after other elements
     const plotTimer = setTimeout(() => setShow3DPlot(true), 600)
     return () => {
       clearTimeout(timer)
@@ -357,16 +334,16 @@ export default function DataAnalysis() {
         </motion.div>
       )}
 
-      {/* New 3D Surface Plot Section */}
+      {/* 3D Surface Plot */}
       {show3DPlot && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }} // Slight delay after the above charts
+          transition={{ delay: 0.2 }}
           className="bg-background rounded-lg p-5 border border-border shadow-inner-highlight"
         >
           <div className="flex items-center gap-2 mb-4">
-            <Layers className="w-5 h-5 text-primary" /> {/* Icon for 3D plot */}
+            <Layers className="w-5 h-5 text-primary" />
             <h3 className="text-base font-semibold text-card-foreground">3D参数地形图分析</h3>
           </div>
           <p className="text-muted-foreground text-xs mb-4 leading-relaxed">
@@ -376,18 +353,27 @@ export default function DataAnalysis() {
         </motion.div>
       )}
 
-      {showAll && ( // Fishbone diagram remains
+      {showAll && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }} // Adjusted delay if 3D plot is also delayed
+          transition={{ delay: 0.1 }}
           className="bg-background rounded-lg p-5 border border-border shadow-inner-highlight"
         >
           <div className="flex items-center gap-2 mb-4">
             <Brain className="w-5 h-5 text-primary" />
             <h3 className="text-base font-semibold text-card-foreground">小瑞AI根因分析 - 石川图 (D4)</h3>
           </div>
-          <FishboneDiagram effect={fishboneData.effect} categories={fishboneData.categories} />
+          {/* -------【只需加一层横向滚动】------- */}
+          <div className="w-full aspect-[1000/420] bg-background rounded-lg p-5 border border-border shadow-inner-highlight">
+            {/* 重点！FishboneDiagram宽度设为1400px，支持大数据 */}
+            <FishboneDiagram
+              effect={fishboneData.effect}
+              categories={fishboneData.categories}
+              width={1000}
+              height={420}
+            />
+          </div>
         </motion.div>
       )}
     </motion.div>

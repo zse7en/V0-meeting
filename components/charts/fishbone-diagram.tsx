@@ -1,49 +1,52 @@
 "use client"
 
 import type React from "react"
-
 import { motion } from "framer-motion"
 
 interface Cause {
   text: string
   level?: number
 }
-
 interface Category {
   name: string
   causes: Cause[]
 }
-
 interface FishboneDiagramProps {
   effect: string
   categories: Category[]
+  width?: number
+  height?: number
 }
 
-const FishboneDiagram: React.FC<FishboneDiagramProps> = ({ effect, categories }) => {
+const FishboneDiagram: React.FC<FishboneDiagramProps> = ({
+  effect,
+  categories,
+  width = 1000,
+  height = 420,
+}) => {
   const PADDING_X = 60
-  const PADDING_Y = 40
-  const SPINE_Y = 300
-  const HEAD_X = 920
+  const SPINE_Y = height / 2
+  const HEAD_X = width - 80
   const TAIL_X = 80
-  const BONE_LENGTH = 260
-  const SUB_BONE_LENGTH = 130
+  const BONE_LENGTH = width > 1200 ? 340 : 260
+  const SUB_BONE_LENGTH = width > 1200 ? 180 : 130
   const ANGLE = 45 // degrees
 
   const categoryColors = [
-    "text-primary", // Purple
-    "text-accent", // Yellow
-    "text-tag-green-text", // Green
-    "text-blue-500", // Blue (ensure this is defined in tailwind.config or use a default like text-blue-500)
-    "text-orange-500", // Orange (ensure this is defined or use a default)
-    "text-pink-500", // Pink (ensure this is defined or use a default)
+    "text-primary", "text-accent", "text-tag-green-text", "text-blue-500",
+    "text-orange-500", "text-pink-500",
   ]
 
-  // Define an arrowhead marker
   const markerId = "arrowhead"
 
   return (
-    <div className="w-full overflow-x-auto bg-card/30 p-4 rounded-lg border border-border">
-      <svg width="1000" height="600" viewBox="0 0 1000 600" className="min-w-[900px]">
+    <div className="w-full h-full bg-card/30 p-4 rounded-lg border border-border">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMinYMid meet"
+      >
         <defs>
           <marker
             id={markerId}
@@ -73,7 +76,7 @@ const FishboneDiagram: React.FC<FishboneDiagramProps> = ({ effect, categories })
         <motion.line
           x1={TAIL_X}
           y1={SPINE_Y}
-          x2={HEAD_X - 15} // Adjusted for arrowhead
+          x2={HEAD_X - 15}
           y2={SPINE_Y}
           className="stroke-muted-foreground"
           strokeWidth="2.5"
@@ -122,7 +125,9 @@ const FishboneDiagram: React.FC<FishboneDiagramProps> = ({ effect, categories })
           const isTopBone = catIndex < categories.length / 2
           const boneAngleRad = (isTopBone ? -ANGLE : ANGLE) * (Math.PI / 180)
           const boneStartX =
-            TAIL_X + PADDING_X + catIndex * ((HEAD_X - TAIL_X - 2 * PADDING_X - 50) / (categories.length - 1))
+            TAIL_X +
+            PADDING_X +
+            catIndex * ((HEAD_X - TAIL_X - 2 * PADDING_X - 50) / (categories.length - 1))
           const boneEndX = boneStartX + BONE_LENGTH * Math.cos(boneAngleRad)
           const boneEndY = SPINE_Y + BONE_LENGTH * Math.sin(boneAngleRad)
 
@@ -156,15 +161,13 @@ const FishboneDiagram: React.FC<FishboneDiagramProps> = ({ effect, categories })
                   {category.name}
                 </text>
               </motion.g>
-
               {/* Sub Bones & Causes */}
               {category.causes.map((cause, causeIndex) => {
-                const subBoneStartRatio = (causeIndex + 1) / (category.causes.length + 1.5) // Adjust spacing
+                const subBoneStartRatio = (causeIndex + 1) / (category.causes.length + 1.5)
                 const subBoneStartX = boneStartX + (boneEndX - boneStartX) * subBoneStartRatio
                 const subBoneStartY = SPINE_Y + (boneEndY - SPINE_Y) * subBoneStartRatio
                 const subBoneEndX = subBoneStartX + SUB_BONE_LENGTH * Math.cos(boneAngleRad)
                 const subBoneEndY = subBoneStartY + SUB_BONE_LENGTH * Math.sin(boneAngleRad)
-
                 return (
                   <g key={cause.text}>
                     <motion.line
@@ -176,7 +179,10 @@ const FishboneDiagram: React.FC<FishboneDiagramProps> = ({ effect, categories })
                       strokeWidth="1"
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: 1 }}
-                      transition={{ delay: 0.6 + catIndex * 0.2 + causeIndex * 0.1, duration: 0.7 }}
+                      transition={{
+                        delay: 0.6 + catIndex * 0.2 + causeIndex * 0.1,
+                        duration: 0.7,
+                      }}
                     />
                     <motion.circle
                       cx={subBoneStartX}
@@ -185,16 +191,22 @@ const FishboneDiagram: React.FC<FishboneDiagramProps> = ({ effect, categories })
                       className={`fill-muted-foreground/70`}
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      transition={{ delay: 0.55 + catIndex * 0.2 + causeIndex * 0.1, duration: 0.4 }}
+                      transition={{
+                        delay: 0.55 + catIndex * 0.2 + causeIndex * 0.1,
+                        duration: 0.4,
+                      }}
                     />
                     <motion.text
                       x={subBoneEndX + (isTopBone ? -5 : 5) * Math.cos(boneAngleRad)}
-                      y={subBoneEndY + (isTopBone ? -5 : 10)} // Adjusted y for better spacing
+                      y={subBoneEndY + (isTopBone ? -5 : 10)}
                       textAnchor={isTopBone ? "end" : "start"}
                       className="fill-card-foreground/90 text-[11px] font-medium"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ delay: 1.1 + catIndex * 0.2 + causeIndex * 0.1, duration: 0.5 }}
+                      transition={{
+                        delay: 1.1 + catIndex * 0.2 + causeIndex * 0.1,
+                        duration: 0.5,
+                      }}
                     >
                       {cause.text}
                     </motion.text>
